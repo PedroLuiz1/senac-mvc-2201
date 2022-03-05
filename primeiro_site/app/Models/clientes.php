@@ -21,4 +21,3 @@ class clientes extends Model
         return $this->hasMany(Vendas::class, 'cliente_id');
     }
 }
-// teste

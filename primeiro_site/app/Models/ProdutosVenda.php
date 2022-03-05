@@ -17,3 +17,4 @@ class ProdutosVenda extends Model
 
     protected $table = 'ProdutosVenda';
 }
+
