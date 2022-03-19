@@ -30,3 +30,12 @@ Route::get('/cadastro', function() {
                                         ['id' => 2,  'item' => 'produto 2', 'desc' => 'descricao dois', 'price'=> 'R$45,00'],
                                         ['id' => 3, 'item' => 'produto 3', 'desc' => 'descricao tres', 'price'=> 'R$60,00']]]);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('clientes')->group( function() {
+    
+    Route::get('/listar', [App\Http\Controllers\ClientesController::class, 'listar'])->middleware('auth');
+});
