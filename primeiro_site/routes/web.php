@@ -17,25 +17,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/avisos', function () {
-    return view('avisos',['nome' => 'Pedro', 
-                        'mostrar' => true,
-                         'avisos' => [[ 'id' => 1, 'aviso' => 'aviso 1'],
-                                     ['id' => 2,  'aviso' => 'aviso 2'],
-                                    ['id' => 3, 'aviso' => 'aviso3']]]);
+Route::get('/avisos', function (){
+    return view('avisos',[  'nome' => 'Albertin', 
+                            'mostrar' => true,
+                            'avisos' => [   ['id' => 1, 'aviso' => 'Mussum Ipsum, cacilds vidis litro abertis'],
+                                            ['id' => 2, 'aviso' => 'Em pé sem cair, deitado sem dormir'],
+                                            ['id' => 3, 'aviso' => 'A ordem dos tratores não altera o pão duris']]]);
 });
-
-Route::get('/cadastro', function() {
-    return view('cadastro',['itens' => [[ 'id' => 1, 'item' => 'produto 1', 'desc' => 'descricao um', 'price' => 'R$20,00'],
-                                        ['id' => 2,  'item' => 'produto 2', 'desc' => 'descricao dois', 'price'=> 'R$45,00'],
-                                        ['id' => 3, 'item' => 'produto 3', 'desc' => 'descricao tres', 'price'=> 'R$60,00']]]);
-});
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('clientes')->group( function() {
-    
-    Route::get('/listar', [App\Http\Controllers\ClientesController::class, 'listar'])->middleware('auth');
+Route::prefix('clientes')->group(function (){
+
+    Route::get('listar', 
+                    [App\Http\Controllers\ClientesController::class,'listar']
+                    )->middleware('auth');
+});
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::resource('/users', App\Http\Controllers\UserController::class);
+    Route::resource('/roles', App\Http\Controllers\RoleController::class);
 });
