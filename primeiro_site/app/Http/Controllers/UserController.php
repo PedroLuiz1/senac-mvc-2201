@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Spatie\Permission\Models\Role;
+use DB;
+use Hash;
+use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $data = User::orderBy('id','DESC')->paginate(5);
 
         return view('users.index', 
