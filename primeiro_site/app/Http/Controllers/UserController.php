@@ -8,10 +8,20 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use App\Models\User;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
     public function index(Request $request) {
+
+        /*$user = User::create([  'name' => 'Pedro Luiz', 
+                                'email' => 'pedro@luiz.com',
+                                'password' => bcrypt('12345678')]);
+        $role = Role::create(['name' => 'Admin']);
+        $permissions = Permission::pluck('id','id')->all();
+        $role->syncPermissions($permissions);
+        $user->assignRole([$role->id]);*/
+
         $data = User::orderBy('id','DESC')->paginate(5);
 
         return view('users.index', 
@@ -59,7 +69,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [ 'name' => 'required',
-                                    'email' => 'required|email|unique:users,email',
+                                    'email' => 'required|email',
                                     'password' => 'required|same:confirm-password',
                                     'roles' => 'required']);
         

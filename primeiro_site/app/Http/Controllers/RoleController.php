@@ -26,7 +26,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->paginate(5);
 
@@ -76,7 +76,7 @@ class RoleController extends Controller
         $rolePermissions = Permission::join('role_has_permissions',
                                             'role_has_permissions.permission_id',
                                             '=',
-                                            'permission_id')->where('role_has_permission.role_id', $id)->get();
+                                            'permission_id')->where('role_has_permissions.role_id', $id)->get();
         
         return view('roles.show', compact('role', 'rolePermissions'));                                    
     }
@@ -117,7 +117,7 @@ class RoleController extends Controller
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
-        $role->syncPerminssions($request->input('permission'));
+        $role->syncPermissions($request->input('permission'));
 
         return redirect()->route('roles.index')
                             ->with('success', 'Perfil atualizado com sucesso');

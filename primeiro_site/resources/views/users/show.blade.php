@@ -41,7 +41,7 @@
 
                 @foreach($user->getRoleNames() as $v)
 
-                    <label class="badge badge-success">{{ $v }}</label>
+                    <label>{{ $v }}</label>
 
                 @endforeach
 
